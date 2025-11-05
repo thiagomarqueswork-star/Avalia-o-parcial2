@@ -26,7 +26,6 @@ public class Lista {
         System.out.println();
     }
 
-    // Teste rápido da classe
     public static void main(String[] args) {
         Lista lista = new Lista();
         lista.inserir(10);
@@ -35,3 +34,4 @@ public class Lista {
         lista.mostrar();
     }
 }
+
