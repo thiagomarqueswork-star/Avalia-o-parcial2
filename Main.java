@@ -1,107 +1,69 @@
-package ap_2;
+package ap2;
 
+import java.util.Scanner;
 
-class No {
-    int valor;
-    No esquerda;
-    No direita;
-
-    public No(int valor) {
-        this.valor = valor;
-        this.esquerda = null;
-        this.direita = null;
-    }
-}
-class ArvoreBinariaDeBusca {
-
-    public No raiz;
-
-    public ArvoreBinariaDeBusca() {
-        this.raiz = null;
-    }
-
-    public void inserir(int valor) {
-        this.raiz = inserirRecursivo(this.raiz, valor);
-    }
-
-    private No inserirRecursivo(No noAtual, int valor) {
-        if (noAtual == null) {
-            System.out.println("Inserindo " + valor);
-            return new No(valor);
-        }
-
-        if (valor < noAtual.valor) {
-            noAtual.esquerda = inserirRecursivo(noAtual.esquerda, valor);
-        } else if (valor > noAtual.valor) {
-            noAtual.direita = inserirRecursivo(noAtual.direita, valor);
-        } else {
-            System.out.println("Valor " + valor + " duplicado, ignorando.");
-        }
-
-        return noAtual;
-    }
-
-    public void percursoEmOrdem() {
-        percursoEmOrdemRecursivo(this.raiz);
-        System.out.println();
-    }
-
-    private void percursoEmOrdemRecursivo(No noAtual) {
-        if (noAtual != null) {
-            percursoEmOrdemRecursivo(noAtual.esquerda);
-            System.out.print(noAtual.valor + " ");
-            percursoEmOrdemRecursivo(noAtual.direita);
-        }
-    }
-
-    public void percursoPosOrdem() {
-        percursoPosOrdemRecursivo(this.raiz);
-        System.out.println();
-    }
-
-    private void percursoPosOrdemRecursivo(No noAtual) {
-        if (noAtual != null) {
-            percursoPosOrdemRecursivo(noAtual.esquerda);
-            percursoPosOrdemRecursivo(noAtual.direita);
-            System.out.print(noAtual.valor + " ");
-        }
-    }
-
-    public void percursoPreOrdem() {
-        percursoPreOrdemRecursivo(this.raiz);
-        System.out.println();
-    }
-
-    private void percursoPreOrdemRecursivo(No noAtual) {
-        if (noAtual != null) {
-            System.out.print(noAtual.valor + " ");
-            percursoPreOrdemRecursivo(noAtual.esquerda);
-            percursoPreOrdemRecursivo(noAtual.direita);
-        }
-    }
-}
-
-class Principal {
-
+public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Lista lista = new Lista();
+        Pilha pilha = new Pilha();
+        Fila fila = new Fila();
 
-        ArvoreBinariaDeBusca bst = new ArvoreBinariaDeBusca();
+        int opcao, valor;
 
-        int[] ra = {2, 4, 0, 0, 8, 4, 8};
+        do {
+            System.out.println("\n=== MENU INTERATIVO ===");
+            System.out.println("1 - Inserir na Lista");
+            System.out.println("2 - Mostrar Lista");
+            System.out.println("3 - Empilhar");
+            System.out.println("4 - Desempilhar");
+            System.out.println("5 - Mostrar Pilha");
+            System.out.println("6 - Enfileirar");
+            System.out.println("7 - Desenfileirar");
+            System.out.println("8 - Mostrar Fila");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
+            opcao = sc.nextInt();
 
-        System.out.println("--- Construindo Árvore com RA: 2400848 ---");
+            switch (opcao) {
+                case 1:
+                    System.out.print("Valor: ");
+                    valor = sc.nextInt();
+                    lista.inserir(valor);
+                    break;
+                case 2:
+                    lista.mostrar();
+                    break;
+                case 3:
+                    System.out.print("Valor: ");
+                    valor = sc.nextInt();
+                    pilha.empilhar(valor);
+                    break;
+                case 4:
+                    pilha.desempilhar();
+                    break;
+                case 5:
+                    pilha.mostrar();
+                    break;
+                case 6:
+                    System.out.print("Valor: ");
+                    valor = sc.nextInt();
+                    fila.enfileirar(valor);
+                    break;
+                case 7:
+                    fila.desenfileirar();
+                    break;
+                case 8:
+                    fila.mostrar();
+                    break;
+                case 0:
+                    System.out.println("Encerrando...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 0);
 
-        for (int digito : ra) {
-            bst.inserir(digito);
-        }
-
-        System.out.println("\n--- Percurso Pré-Ordem ---");
-        bst.percursoPreOrdem();
-
-        System.out.println("\n--- Percurso Em Ordem (Ordenado) ---");
-        bst.percursoEmOrdem();
-
-        System.out.println("\n--- Percurso Pós-Ordem ---");
-        bst.percursoPosOrdem();
+        sc.close();
     }
 }
